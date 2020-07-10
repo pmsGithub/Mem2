@@ -20,7 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView()
+//        let contentView = ContentView()
+
+// Here we add the instantiation of the VM, which instantiates the M
+        let game = EmojiMemoryGame()
+        
+// And this new 'contentView' connects V to VM… and indirectly to M
+// I believe this is the connection to the display of the Simulator
+        let contentView = ContentView(viewModel: game)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
