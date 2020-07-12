@@ -23,11 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = ContentView()
 
 // Here we add the instantiation of the VM, which instantiates the M
-        let game = EmojiMemoryGame()
+        let theReader = Reader()
+
         
 // And this new 'contentView' connects V to VM… and indirectly to M
-// I believe this is the connection to the display of the Simulator
-        let contentView = ContentView(viewModel: game)
+// This is the connection to the display of the Simulator
+//        let contentView = ContentView(viewModel: theReader)
+        let contentView = ContentView(viewModel: theReader)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

@@ -8,44 +8,39 @@
 
 import SwiftUI
 
-//func createCardContent(pairIndex: Int) -> String {
-//    return "🌱"
-//}
+let germanStrings: [String] = [
+    "Er", "wollte", "es", "sich", "nicht", "eingestehen,",
+    "aber", "er", "hatte", "Angst", "vor", "diesem", "Wasser,",
+    "Angst", "vor", "dem,",
+    "was", "sein", "Fuß", "da", "womöglich", "berührte,",
+    "wenn", "er", "hindurchwartete,",
+    "oder", "schlimmer", "noch,",
+    "was", "um", "seine", "Beine", "streichen", "oder", "in", "seine", "Stiefel", "rinnen", "konnte."
+]
 
-class EmojiMemoryGame {
-//    private var model: MemoryGame<String> =
-//        MemoryGame<String>(numberOfPairsOfCards: 2, cardContentFactory: { (pairIndex: Int) -> String in return "🌱" })
-//        MemoryGame<String>(numberOfPairsOfCards: 2, cardContentFactory: {  pairIndex       -> String in        "🌱" })
-//        MemoryGame<String>(numberOfPairsOfCards: 2)                     {  pairIndex       -> String in        "🌱" }
-//        MemoryGame<String>(numberOfPairsOfCards: 2)                     {  _               -> String in        "🌱" }
+class Reader {
 
-//    private var model: MemoryGame<String> = createMemoryGame()
-// When you make'createMemoryGame()' static (a class function), then you must use its class.func name form
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+// Instantiate M as a 'book', and make this var the portal to it.
+//    Use 'germanStrings' to create a sentence consisting of an array of atoms
+//    Use the sentence to create a 'book' consisting of just one sentence
+//    private var book = Book(firstSentence: Sentence(germanStrings: germanStrings))
+    private var book = Book(titleSentence: Sentence(titleAtom: Atom(titleGerman: "Kein_Titel", titleYoda: "Untitled")))
     
-//    Make the function static to avoid the following error…
-//    Cannot use instance member 'createMemoryGame' within property initializer; property initializers run before 'self' is available
-    static func createMemoryGame() -> MemoryGame<String> {
-//        let emojis: Array<String> = ["👻", "🎃"]
-        let emojis = ["👻", "🎃", "🕷"]
-        return MemoryGame<String>(numberOfPairsOfCards: emojis.count) { pairIndex in
-            return emojis[pairIndex]
-        }
-    }
     
     // MARK: - Access to the Model
     
     // This is computed var, containing only an implicit 'get' clause, with an implied 'return' keyword.
-    // Thus, 'cards' is a read-only var that, when read, will return the current state of the array of cards in the Model.
-    // Since 'CardContent' is really 'String', model.cards[i].content is of type 'String' and can hold an emoji string.
-    var cards: Array<MemoryGame<String>.Card> {
-        model.cards
+    // Thus, 'sentences' is a read-only var that, when read, will return the current state of the array of sentences in the Model.
+    var sentences: [Sentence] {
+        book.sentences
     }
+    
+    var theBook: Book { book }
     
     //MARK: - Intents
     
     // Anybody wanting to run 'choose' in the Model must do it by running this 'choose' in the ViewModel
-    func choose(card: MemoryGame<String>.Card) {
-        model.choose(card: card)
+    func chooseAtom(sentenceID sID: Int, atomID aID: Int) {
+        book.sentences[sID].atoms[aID].isChosen = true
     }
 }
